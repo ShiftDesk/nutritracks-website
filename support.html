@@ -1,8 +1,334 @@
 <!DOCTYPE html>
-<html>
-<head><title>Support - NutriTracks</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support – NutriTracks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #4a7c59; --sage-light: #6aab7c; --sage-pale: #eef6f1;
+      --leaf: #2d5a3d; --cream: #faf8f3; --ink: #1c2b22;
+      --mist: #8da898; --white: #ffffff; --r: .75rem;
+      --border: rgba(74,124,89,.12);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2rem;
+      background: rgba(250,248,243,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 900; color: var(--leaf); text-decoration: none; }
+    .nav-logo span { color: var(--sage-light); }
+    .back-link { font-size: .875rem; color: var(--mist); text-decoration: none; display: flex; align-items: center; gap: .4rem; transition: color .2s; }
+    .back-link:hover { color: var(--sage); }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--leaf) 0%, var(--sage) 100%);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--white); font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .page-header p { color: rgba(255,255,255,.7); font-size: .95rem; font-weight: 300; max-width: 480px; margin: 0 auto; }
+
+    main { max-width: 780px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    /* ── CONTACT ── */
+    .contact-section { margin-bottom: 4rem; }
+    .contact-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--leaf);
+      margin-bottom: .5rem;
+    }
+    .contact-section > p {
+      color: var(--mist); font-size: .95rem; font-weight: 300;
+      line-height: 1.7; margin-bottom: 1.75rem;
+    }
+
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .contact-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.75rem;
+      display: flex; flex-direction: column; align-items: flex-start; gap: .75rem;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .contact-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(74,124,89,.1); }
+    .contact-card .card-icon {
+      font-size: 1.75rem;
+      background: var(--sage-pale);
+      width: 52px; height: 52px;
+      border-radius: .75rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-card h3 { font-size: 1rem; font-weight: 600; color: var(--leaf); }
+    .contact-card p { font-size: .875rem; color: var(--mist); font-weight: 300; line-height: 1.6; }
+    .contact-card a {
+      font-size: .925rem; font-weight: 600;
+      color: var(--sage);
+      text-decoration: none;
+      border-bottom: 2px solid rgba(74,124,89,.25);
+      padding-bottom: 1px;
+      transition: color .2s, border-color .2s;
+    }
+    .contact-card a:hover { color: var(--leaf); border-color: var(--leaf); }
+
+    /* ── EMAIL HIGHLIGHT ── */
+    .email-banner {
+      background: linear-gradient(135deg, var(--leaf) 0%, var(--sage) 100%);
+      border-radius: 1rem;
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .email-banner .email-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--white); margin-bottom: .25rem;
+    }
+    .email-banner .email-text p { color: rgba(255,255,255,.7); font-size: .875rem; font-weight: 300; }
+    .email-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--white); color: var(--leaf);
+      text-decoration: none; font-weight: 600; font-size: .925rem;
+      padding: .85rem 1.5rem; border-radius: var(--r);
+      white-space: nowrap;
+      transition: transform .2s, box-shadow .25s;
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    }
+    .email-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+
+    /* ── FAQ ── */
+    .faq-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--leaf);
+      margin-bottom: .5rem;
+    }
+    .faq-section > p {
+      color: var(--mist); font-size: .95rem; font-weight: 300;
+      line-height: 1.7; margin-bottom: 2rem;
+    }
+
+    .faq-list { display: flex; flex-direction: column; gap: .75rem; }
+
+    details {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: box-shadow .25s;
+    }
+    details[open] { box-shadow: 0 6px 20px rgba(74,124,89,.1); }
+    details[open] summary { border-bottom: 1px solid var(--border); }
+
+    summary {
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      font-size: .975rem; font-weight: 500; color: var(--leaf);
+      list-style: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: '+';
+      font-size: 1.4rem; font-weight: 300; color: var(--sage);
+      flex-shrink: 0;
+      transition: transform .3s;
+    }
+    details[open] summary::after { content: '&#x2212;'; transform: rotate(180deg); }
+
+    .faq-answer {
+      padding: 1.25rem 1.5rem;
+      font-size: .9rem; color: #4a5c51;
+      line-height: 1.8; font-weight: 300;
+    }
+    .faq-answer p + p { margin-top: .75rem; }
+    .faq-answer a { color: var(--sage); text-decoration: underline; }
+
+    /* response time badge */
+    .response-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--sage-pale);
+      border: 1px solid rgba(74,124,89,.2);
+      border-radius: 99px;
+      padding: .4rem 1rem;
+      font-size: .78rem; font-weight: 500;
+      color: var(--sage);
+      margin-bottom: 2rem;
+    }
+    .response-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage-light); }
+
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.5);
+      padding: 2rem; text-align: center;
+    }
+    .footer-links { display: flex; gap: 2rem; justify-content: center; list-style: none; margin-bottom: .75rem; }
+    .footer-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .875rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--sage-light); }
+    footer small { font-size: .78rem; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      .email-banner { flex-direction: column; text-align: center; }
+      .email-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
 <body>
-    <h1>NutriTracks Support</h1>
-    <p>For questions or technical support regarding NutriTracks, please email us at: support@nutritracks.app</p>
+
+<nav>
+  <a href="index.html" class="nav-logo">Nutri<span>Tracks</span></a>
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+</nav>
+
+<header class="page-header">
+  <h1>Support</h1>
+  <p>We're here to help. Reach out anytime — we're a small, friendly team and we actually read every message.</p>
+</header>
+
+<main>
+
+  <!-- CONTACT US -->
+  <section class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Have a question, found a bug, or just want to share feedback? We'd love to hear from you.</p>
+
+    <div class="response-badge">
+      <span class="dot"></span>
+      Typical response time: within 1–2 business days
+    </div>
+
+    <div class="contact-cards">
+      <div class="contact-card">
+        <div class="card-icon">&#x2709;&#xFE0F;</div>
+        <h3>Email Support</h3>
+        <p>Our primary support channel. Best for account issues, billing, and detailed questions.</p>
+        <a href="mailto:support@nutritracks.app">support@nutritracks.app</a>
+      </div>
+      <div class="contact-card">
+        <div class="card-icon">&#x1F41E;</div>
+        <h3>Report a Bug</h3>
+        <p>Found something broken? Let us know the steps to reproduce it and we'll get it fixed.</p>
+        <a href="mailto:support@nutritracks.app?subject=Bug%20Report">Send bug report</a>
+      </div>
+      <div class="contact-card">
+        <div class="card-icon">&#x1F4A1;</div>
+        <h3>Feature Requests</h3>
+        <p>Have an idea to make NutriTracks better? We read every suggestion — many features started this way.</p>
+        <a href="mailto:support@nutritracks.app?subject=Feature%20Request">Share your idea</a>
+      </div>
+    </div>
+
+    <div class="email-banner">
+      <div class="email-text">
+        <h3>Reach us directly</h3>
+        <p>One address handles everything — support, privacy requests, and feedback.</p>
+      </div>
+      <a href="mailto:support@nutritracks.app" class="email-btn">
+        &#x2709; support@nutritracks.app
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <p>Quick answers to the questions we hear most often. Can't find what you're looking for? Just email us.</p>
+
+    <div class="faq-list">
+
+      <details>
+        <summary>How do I log a meal?</summary>
+        <div class="faq-answer">
+          <p>Tap the <strong>+</strong> button on the home screen and choose how you'd like to add food: scan a barcode, search our database by name, or select a recent or favourite item.</p>
+          <p>You can also create custom foods and recipes from the <strong>My Foods</strong> tab if you cook at home regularly.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I sync NutriTracks with Apple Health?</summary>
+        <div class="faq-answer">
+          <p>Yes! Go to <strong>Settings → Integrations → Apple Health</strong> and toggle on the data types you'd like to sync (calories, macros, weight, etc.). All syncing is optional and you control exactly what is shared.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I change my daily calorie or macro goals?</summary>
+        <div class="faq-answer">
+          <p>Navigate to <strong>Settings → My Goals</strong>. You can either let NutriTracks calculate targets automatically from your profile, or enter custom targets for calories, protein, carbohydrates, fat, and fibre individually.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>I forgot my password — how do I reset it?</summary>
+        <div class="faq-answer">
+          <p>On the login screen, tap <strong>Forgot Password?</strong> and enter your email address. You'll receive a reset link within a few minutes. If you signed up with Sign in with Apple, you can use that same method to access your account — no password is required.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I delete my account and data?</summary>
+        <div class="faq-answer">
+          <p>Go to <strong>Settings → Account → Delete Account</strong>. This will permanently erase all your personal data from our servers within 30 days. This action cannot be undone.</p>
+          <p>If you're having trouble accessing settings, email <a href="mailto:support@nutritracks.app">support@nutritracks.app</a> and we'll process the deletion manually.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Is NutriTracks free to use?</summary>
+        <div class="faq-answer">
+          <p>NutriTracks is free to download with a generous set of core features available at no cost. A <strong>NutriTracks Pro</strong> subscription unlocks advanced analytics, unlimited custom recipes, and priority support. You can see the full comparison in the app.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I cancel my Pro subscription?</summary>
+        <div class="faq-answer">
+          <p>Subscriptions are managed by Apple. To cancel, open the <strong>Settings</strong> app on your iPhone, tap your name, then <strong>Subscriptions</strong>, find NutriTracks, and tap <strong>Cancel Subscription</strong>. You'll retain Pro access until the end of your current billing period.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>The app is crashing — what should I do?</summary>
+        <div class="faq-answer">
+          <p>First, try force-quitting the app and reopening it. If the issue persists, make sure you're running the latest version from the App Store. If it's still crashing, please <a href="mailto:support@nutritracks.app?subject=App%20Crash">email us</a> with your device model and iOS version and we'll investigate right away.</p>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <ul class="footer-links">
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="index.html">Home</a></li>
+  </ul>
+  <small>&copy; 2025 NutriTracks. All rights reserved.</small>
+</footer>
+
 </body>
 </html>
